@@ -52,11 +52,40 @@ try:
             favicon_element = wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="main-article-section"]/div/div/div[2]/div/div/div/div/div[7]/div[1]/span/picture/img')))
             favicon_src = favicon_element.get_attribute('src')
             if 'favicon_commencis.png' in favicon_src:
-                print("Commencis Favicon Bulundu!")
+                print("Commencis Favicon Bulundu")
             else:
-                print("Commencis Favicon Bulunamadı.")
+                print("Commencis Favicon Bulunamadı")
         except Exception as e:
             print(f"Favicon kontrolü yapılırken hata oluştu: {e}")
+
+        try:
+            context_element = wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="main-article-section"]/div/div/div[2]/div/div/div/div/div[2]/p/span/span[2]')))
+            context_value = int(context_element.text.strip())
+            if context_value > 0:
+                print("Blog'da Context Bulundu!")
+            else:
+                print("Blog'da Context Bulunamadı.")
+        except Exception as e:
+            print(f"Context kontrolü yapılırken hata oluştu: {e}")
+
+        try:
+            date_element = wait.until(EC.presence_of_element_located((By.CLASS_NAME, 'date-info')))
+            date_text = date_element.text.strip()
+            print(f"Blog tarihi: {date_text}")
+        except Exception as e:
+            print("Tarih bulunamadı")
+
+        try:
+            email_input = driver.find_element(By.XPATH, "//input[@placeholder='Your e-mail']")
+            print("E-posta input alanı bulundu.")
+        except Exception as e:
+            print("E-posta input alanı bulunamadı.")
+
+        try:
+            submit_button = driver.find_element(By.XPATH, '//input[@type="submit"]')
+            print("Stay Tuned Butonu bulundu")
+        except Exception as e:
+            print("Stay Tuned Butonu bulunamadı.")
 
         driver.back()
         random_wait(2, 4)
